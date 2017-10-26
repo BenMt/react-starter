@@ -1,0 +1,18 @@
+{
+  "presets": ["env", "react", "stage-0"],
+  "plugins": [
+    "dynamic-import-webpack",
+    [
+      "module-resolver",
+      {
+        "root": ["./app"],
+        "alias": {
+          "config": "config",
+          "server": "server",
+          "modules": "client/modules",
+          "pages": "client/pages"
+        }
+      }
+    ]
+  ]
+}
