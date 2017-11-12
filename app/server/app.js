@@ -1,8 +1,8 @@
 import webpack from 'webpack'
 import path from 'path'
 import express from 'express'
+import { readFileSync } from 'jsonfile'
 
-import webpackConfig from '../../webpack.config.babel'
 import { middleware } from './middleware'
 import { isProd, WEB_PORT } from '../config'
 
@@ -13,8 +13,11 @@ const app = express()
 const staticPath = path.join(__dirname, '../../', 'static')
 app.use(express.static(staticPath))
 
+const assetsPath = `${process.cwd()}/build/static/webpack-assets.json`
+const assets = isProd ? readFileSync(assetsPath) : false
+
 if (!isProd) {
-  const config = webpackConfig({})
+  const config = require('../../webpack.config.babel').default({})
   const compiler = webpack(config)
 
   app.use(
@@ -31,7 +34,7 @@ if (!isProd) {
 }
 
 app.get('*', (req, res) => {
-  middleware(req, res)
+  middleware(req, res, assets)
 })
 
 // start app

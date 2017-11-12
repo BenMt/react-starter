@@ -8,9 +8,9 @@ import App from '../client/app'
 import createStore from '../client/modules/redux/store'
 import routes from '../client/pages/routes'
 
-import { Html } from '../client/modules/app'
+import Html from './components/Html'
 
-export const middleware = (req, res) => {
+export const middleware = (req, res, assets) => {
   console.log(`URL => ${req.url}`)
   const store = createStore()
 
@@ -32,7 +32,7 @@ export const middleware = (req, res) => {
     )
 
     const rendered = renderToString(
-      <Html component={Root} state={store.getState()} />
+      <Html component={Root} state={store.getState()} assets={assets} />
     )
     res.status(200).send(`<!doctype html>${rendered}`)
   })

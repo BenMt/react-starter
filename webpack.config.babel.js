@@ -1,13 +1,17 @@
 import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
 import path from 'path'
 
 import { WEB_PORT, DEV_SERVER_PORT } from './app/config'
 
 export default env => {
+  const removeEmpty = array => array.filter(i => !!i)
   return {
-    entry: ['webpack-hot-middleware/client', './app/client'],
+    entry: env.prod
+      ? { app: './app/client/index.js' }
+      : ['webpack-hot-middleware/client', './app/client'],
     output: {
-      path: path.join(__dirname, 'tmp/static'),
+      path: path.join(__dirname, 'build/static'),
       publicPath: '/',
       filename: env.prod ? '[name].[chunkhash].js' : '[name].bundle.js'
     },
@@ -22,8 +26,8 @@ export default env => {
         }
       ]
     },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
+    plugins: removeEmpty([
+      !env.prod && new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV)
@@ -31,11 +35,17 @@ export default env => {
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
+        filename: env.prod ? 'vendor.[hash].js' : 'vendor.js',
         minChunks: function(module) {
-          // this assumes your vendor imports exist in the node_modules directory
           return module.context && module.context.indexOf('node_modules') !== -1
         }
-      })
-    ]
+      }),
+      env.prod &&
+        new AssetsPlugin({
+          fullPath: false,
+          includeManifest: 'manifest',
+          path: path.join(__dirname, 'build/static')
+        })
+    ])
   }
 }
