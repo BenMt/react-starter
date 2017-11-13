@@ -2,19 +2,22 @@
   "name": "react-starter",
   "version": "0.1.0",
   "description": "",
-  "author": "",
+  "author": "Benoit Maigret <contact@benoitmaigret.com>",
   "license": "ISC",
   "main": "index.js",
   "scripts": {
     "build": "npm run build:server && npm run build:client",
     "build:client": "cross-env NODE_ENV=production webpack --env.prod",
-    "build:server": "cross-env NODE_ENV=production babel app --out-dir build/lib",
+    "build:server":
+      "cross-env NODE_ENV=production babel app --out-dir build/lib",
     "prebuild": "npm run clean",
     "clean": "rimraf build lib",
     "dev": "cross-env NODE_ENV=development node app/server",
     "start": "cross-env NODE_ENV=production node build/lib/server",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "prettify": "prettier --single-quote --no-semi --write '{app,__{tests,mocks}__}/**/*.js'"
+    "eslint-check":
+      "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "prettify":
+      "prettier --single-quote --no-semi --write '{app,__{tests,mocks}__}/**/*.js'"
   },
   "dependencies": {
     "express": "^4.16.2",
