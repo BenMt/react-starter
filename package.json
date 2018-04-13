@@ -6,12 +6,13 @@
   "license": "MIT",
   "scripts": {
     "start": "",
-    "dev": "webpack-dashboard -- babel-node ./internal/scripts/development"
+    "dev": "babel-node ./internal/scripts/development"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -24,7 +25,9 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
+    "@rematch/core": "^0.6.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "react-redux": "^5.0.7"
   }
 }

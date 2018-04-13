@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
 
 export default {
-  entry: ['react-hot-loader/patch', './src/index.js'],
+  entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'],
   output: {
     path: __dirname + '/dist',
     filename: 'app.[hash].js',
