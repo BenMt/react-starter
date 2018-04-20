@@ -5,13 +5,10 @@
   "author": "Benoit Maigret <benoit.maigret@fairfaxmedia.com.au>",
   "license": "MIT",
   "scripts": {
-    "build":
-      "webpack --config ./internal/webpack/webpack.config.babel.js --mode production",
-    "start":
-      "webpack-dev-server --mode development --config ./internal/webpack/webpack.config.babel.js",
-    "start:server": "yarn build && node server",
-    "analyse":
-      "webpack --config ./internal/webpack/webpack.analyse.config.babel.js --mode production"
+    "build": "webpack --config ./internal/webpack/webpack.config.babel.js --mode production",
+    "start:dev": "webpack-dev-server --mode development --config ./internal/webpack/webpack.config.babel.js",
+    "start": "yarn build && node server",
+    "analyse": "webpack --config ./internal/webpack/webpack.analyse.config.babel.js --mode production"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -25,6 +22,7 @@
     "express": "^4.16.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.12.1",
     "react-hot-loader": "^4.0.1",
     "webpack": "^4.5.0",
     "webpack-bundle-analyzer": "^2.11.1",
@@ -35,6 +33,8 @@
     "@rematch/core": "^0.6.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }
