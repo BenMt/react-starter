@@ -1,15 +1,39 @@
 import express from 'express'
 import path from 'path'
+import webpack from 'webpack';
 
-const app = express()
-app.use(express.static('dist'))
-app.get('*', (req, res, next) => {
-  res.sendFile(path.join(__dirname + '/../dist/index.html'))
-})
+import middleware from './src/middleware';
 
-app.listen(8080, err => {
-  if (err) {
-    console.log('Server error')
-  }
-  console.log('Server is running')
-})
+const app = express();
+
+if(process.env.NODE_ENV === 'development') {
+	const config = require('./webpack.config.dev');
+	const compiler = webpack(config);
+	app.use(require('webpack-dev-middleware')(compiler, {
+		noInfo: true,
+		publicPath: config.output.publicPath,
+		stats: {
+			assets: false,
+			colors: true,
+			version: false,
+			hash: false,
+			timings: false,
+			chunks: false,
+			chunkModules: false
+		}
+	}));
+	app.use(require('webpack-hot-middleware')(compiler));
+	app.use(express.static(path.resolve(__dirname, 'src')));
+} else if(process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.resolve(__dirname, 'dist')));
+}
+
+app.get('*', middleware);
+
+app.listen(3000, '0.0.0.0', (err) => {
+	if(err) {
+		console.error(err);
+	} else {
+		console.info('Listening at http://localhost:3000');
+	}
+});

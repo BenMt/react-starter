@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config ./internal/webpack/webpack.config.babel.js --mode production",
-    "start:dev": "webpack-dev-server --mode development --config ./internal/webpack/webpack.config.babel.js",
+    "dev": "webpack-dev-server --mode development --config ./internal/webpack/webpack.config.babel.js",
     "start": "yarn build && node server",
     "analyse": "webpack --config ./internal/webpack/webpack.analyse.config.babel.js --mode production"
   },
